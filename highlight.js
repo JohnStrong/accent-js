@@ -14,20 +14,14 @@
 
 	'use strict';
 
-	// return expressions and corresponding class for each feature of supported language
-	// e.g. 'lolcode' -> { 'hai' : [_expression, _class], ... }
-	var _language = {
+	// return expressions and corresponding identifier for each feature of supported language
+	// e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
+	var language = {
 
 		'javascript': {
 
 			// regular expression literals
 			'regExp': [/(\/.*\/(\w+))(?=[^\s])/g, '<span class=js-regexp>$1</span>'],
-
-			// inline comments
-			'inlineCom': [/(\/{2}.*?\n+)/g, '<span class=js-comment-il>$1</span>'],
-
-			// multiple line comments
-			'multiLineCom': [/(\/\*(.|[\r\n])*\*\/)/g, '<span class=js-comment-ml>$1</span>'],
 
 			// double qouted trhing
 			'doubleStr': [/"(.*?)"/g, '<span class=js-double-str>"$1"</span>'],
@@ -38,11 +32,16 @@
 			// common language operators such as conditionals and loops
 			'basicOps': [/\b(if|else|continue|switch|case|default|break|return|for)(?=[^\w])/g, '<span class=js-basic>$1</span>'],
 
-			// variable assignment keywords
-			'assignment': [/\b(function|var|const|in|new)(?=[^\w])/g, '<span class=js-assignment>$1</span>'],
+			'assignment': [/(.+?)((?=\s{0,}=\s{0,}\({0,}\s{0,}function))/g, '<span class=js-assignment>$1</span>$2'],
 
-			// function arguments
-			// 'args': [/////]
+			// variable assignment keywords
+			'declarations': [/\b(function|var|const|in|new)(?=[^\w])/g, '<span class=js-declaration>$1</span>'],
+
+			// dot methods
+			'methods': [/(\.\w+)/g, '<span class=js-method-reg>$1</span>'],
+
+			// frequently used document methods
+			'specialMethods': [/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, '<span class=js-method-special>$1</span>'],
 
 			// global javascript objects/packages
 			'global': [/\b(console|document|location|history|localStorage|Math|window)/g, '<span class=js-global>$1</span>'],
@@ -54,11 +53,20 @@
 			'types': [/\b(Array|String|Function|Object|Number|Date|Error|typeof|instanceof)/g, '<span class=js-types>$1</span>'],
 
 			// numeric values
-			'numberLiteral': [/(\d)/g, '<span class=js-numeric>$1</span>']
+			'numberLiteral': [/(\d)/g, '<span class=js-numeric>$1</span>'],
+
+			// function arguments - tricky
+			// 'args': [/function\s{0,}\((.*?)\)/g, '(<span class=js-args>$1</span>)'],
+
+			// inline comments
+			'inlineCom': [/(\/{2}.*?\n+)/g, '<span class=js-comment-il>$1</span>'],
+
+			// multiple line comments
+			'multiLineCom': [/(\/\*(.|[\r\n])*\*\/)/g, '<span class=js-comment-ml>$1</span>']
 		}
 	},
 
-	// parses element text body according to the selected language property rules (see _language)
+	// parses element text body according to the selected language property rules (see language)
 	_parse = ( function() {
 
 		var _byFeature = function(textBody, langFeature) {
@@ -72,6 +80,7 @@
 			
 			// apply language highlighting rules to text
 			for(var feature in lang) {
+
 				textBody = _byFeature(textBody, lang[feature]);
 			}
 			
@@ -85,30 +94,39 @@
 	// clean up closure functionality, implment a less general condition evaluation function
 	highlight = ( function(parse, language) {
 
-		var _illegalArgumentsError = 'both class and language parameters must be strings',
+		var _illegalArgumentsError = 'both identifier and language parameters must be strings',
 
 		// TODO: make it more useful!!!!
 		_is = function(args, condition) {
-			return !!condition(args);
+			return condition(args);
+		},
+
+		// formats dom node by wrapping it with a HTML pre node
+		_wrapWithPre = function(domNode) {
+			var parent = domNode.parentNode,
+				pre = document.createElement('pre');
+
+				parent.replaceChild(pre, domNode);
+				pre.appendChild(domNode);
 		};
 
-		return function(_class, _lang) {
+		return function(identifier, lang) {
 
 			var config = {},
 
 			// basic input validation of function params
 
-			isClassString = _is(_class, function(_cl) {
-				return (_cl && typeof _cl === 'string');
+			isidentifierString = _is(identifier, function(_class) {
+				return (_class && typeof _class === 'string');
 			}),
 
-			isLangString = _is(_lang, function(_ln) {
+			isLangString = _is(lang, function(_ln) {
 				return (_ln && typeof _ln === 'string');
 			});
 			
-			if(isClassString && isLangString) {
-				config.elems = document.getElementsByClassName(_class);
-				config.lang = language[_lang];
+			if(isidentifierString && isLangString) {
+				config.elems = document.getElementsByClassName(identifier);
+				config.lang = language[lang];
 			} else {
 				throw new Error(_illegalArgumentsError);
 			}
@@ -125,11 +143,16 @@
 						return _name === 'PRE';
 					});
 
+				// format the current node
+				if(!isNodePreformatted) {
+					_wrapWithPre(current);
+				}
+
 				parse(current, config.lang);
 			};
 		};
 
-	})(_parse, _language);
+	})(_parse, language);
 
 	window.highlight = highlight;
 

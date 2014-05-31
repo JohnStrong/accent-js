@@ -9,7 +9,7 @@
 	color: #09a;
 }
 
-.js-global {
+.js-global, .js-method-special {
 	color: #a12;
 }
 
@@ -17,15 +17,23 @@
 	color: #a02;
 }
 
-.js-assignment {
+.js-declaration {
 	color: #06D;
+}
+
+.js-args {
+	color: #aaa;
+}
+
+.js-method-reg {
+	color: #333;
 }
 
 .js-double-str {
 	color: #590;
 }
 
-.js-single-str {
+.js-single-str, .js-assignment {
 	color: #290;
 }
 
