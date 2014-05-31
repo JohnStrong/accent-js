@@ -73,10 +73,11 @@
 			return textBody.replace(langFeature[0], langFeature[1]);
 		};
 
-		// to comment
-		return function(elem, lang) {
+		
+		// return highlighted text of given dom node for given language
+		return function(domNode, lang) {
 			
-			var textBody = elem.innerHTML;
+			var textBody = domNode.innerHTML;
 			
 			// apply language highlighting rules to text
 			for(var feature in lang) {
@@ -84,7 +85,8 @@
 				textBody = _byFeature(textBody, lang[feature]);
 			}
 			
-			elem.innerHTML = textBody;
+			// replace plain node text body with highlighted text body
+			domNode.innerHTML = textBody;
 		};
 
 	})(),
