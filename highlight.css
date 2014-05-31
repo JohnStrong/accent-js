@@ -1,0 +1,54 @@
+/*************************************
+ * General Language Properties
+ *************************************/
+
+/*************************************
+ * JAVASCRIPT Highlighter Properties
+ *************************************/
+.js-basic {
+	color: #09a;
+}
+
+.js-global {
+	color: #a12;
+}
+
+.js-doc {
+	color: #a02;
+}
+
+.js-assignment {
+	color: #06D;
+}
+
+.js-double-str {
+	color: #590;
+}
+
+.js-single-str {
+	color: #290;
+}
+
+.js-regexp {
+	color: #A52;
+}
+
+.js-comment-il {
+	color: #666;
+}
+
+.js-comment-ml {
+	color: #555;
+}
+
+.js-types {
+	color: #04a;
+}
+
+.js-numeric {
+	color: #c66;
+}
+
+.js-empty {
+	color: #c66;
+}
