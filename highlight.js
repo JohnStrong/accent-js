@@ -38,7 +38,7 @@
 			'declarations': [/\b(function|var|const|in|new)(?=[^\w])/g, '<span class=js-declaration>$1</span>'],
 
 			// dot methods
-			'methods': [/(\.\w+)/g, '<span class=js-method-reg>$1</span>'],
+			'methods': [/(\.\w+)(\(.*?\))/g, '<span class=js-method-reg>$1</span>$2'],
 
 			// frequently used document methods
 			'specialMethods': [/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, '<span class=js-method-special>$1</span>'],
