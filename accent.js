@@ -41,49 +41,32 @@
 			],
 
 			// common language operators such as conditionals and loops
-			'basicOps': [
+			'operationKeywords': [
 				/\b(if|else|continue|switch|case|default|break|return|for)(?=[^\w])/g, 
-				'<span class=js-basic>$1</span>'
-			],
-
-			'assignment': [
-				/([^\.]\w*?)((?=\s{0,}=\s{0,}\({0,}\s{0,}function))/g, 
-				'<span class=js-assignment>$1</span>$2'
+				'<span class=js-operation><span class=js-keyword>$1</span></span>'
 			],
 
 			// variable assignment keywords
-			'declarations': [
-				/\b(function|var|const|in|new|this)(?=[^\w])/g, 
-				'<span class=js-declaration>$1</span>'
-			],
-
-			// prototype references
-			'prototype': [
-				/\b(prototype|__proto__)(?=[^\w])/g, 
-				'<span class="js-prototype">$1</span>'
+			'declarationKeywords': [
+				/\b(function|var|const|in|new|this|prototype)(?=[^\w])/g, 
+				'<span class=js-declaration><span class=js-keyword>$1</span></span>'
 			],
 
 			// frequently used document methods
-			'specialMethods': [
-				/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, 
-				'<span class=js-method-special>$1</span>'
+			'specials': [
+				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|log|alert|setTimeout|setInterval)/g, 
+				'<span class=js-special>$1</span>'
 			],
 
 			// global javascript objects/packages
 			'global': [
-				/\b(console|document|location|history|localStorage|Math|window|alert|setTimeout|setInterval)(?=[^\w])/g,
+				/\b(console|document|location|history|localStorage|Math|window)(?=[^\w])/g,
 				 '<span class=js-global>$1</span>'
-			],
-
-			// empty\NULL valued keywords
-			'empty': [
-				/\b(null|undefined)/g, 
-				'<span class=js-empty>$1</span>'
 			],
 
 			// basic types and special type checking keywords
 			'types': [
-				/\b(Array|String|Function|Object|Number|Date|Error|typeof|instanceof)/g, 
+				/\b(Array|String|Function|Object|Number|Date|Error|null|undefined|true|false)/g, 
 				'<span class=js-type>$1</span>'
 			],
 

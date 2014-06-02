@@ -5,16 +5,20 @@
 /*************************************
  * JAVASCRIPT Highlighter Properties
  *************************************/
-.js-basic {
+.js-operation {
 	color: #09a;
 }
 
-.js-global, .js-method-special {
+.js-special {
 	color: #21a;
 }
 
 .js-doc {
 	color: #a02;
+}
+
+.js-keyword {
+	font-weight: bold !important;
 }
 
 .js-declaration {
@@ -29,12 +33,8 @@
 	color: #590;
 }
 
-.js-single-str, .js-assignment {
+.js-single-str {
 	color: #290;
-}
-
-.js-prototype {
-	color: #701;
 }
 
 .js-regexp {
@@ -57,6 +57,6 @@
 	color: #c66;
 }
 
-.js-empty {
-	color: #c66;
+.js-global {
+	color: #A00;
 }
