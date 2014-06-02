@@ -136,7 +136,7 @@
 
 	// outward facing reference
 	// clean up closure functionality, implment a less general condition evaluation function
-	_highlight = ( function(parse, language) {
+	accent = ( function(parse, language) {
 
 		var _illegalArgumentsError = 'both identifier and language parameters must be strings',
 
@@ -198,6 +198,6 @@
 
 	})(_parse, _language);
 
-	window.highlight = _highlight;
+	window.accent = accent;
 
 })();
