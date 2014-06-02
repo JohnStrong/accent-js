@@ -20,6 +20,10 @@
 
 		'javascript': {
 
+			// escape special characters
+			'htmlOpenTag': [/</g, '&lt'],
+			'htmlCloseTag': [/>/g, '&gt'],
+
 			// regular expression literals
 			'regExp': [/(\/.*\/(\w+))(?=[^\s])/g, '<span class=js-regexp>$1</span>'],
 
@@ -32,19 +36,16 @@
 			// common language operators such as conditionals and loops
 			'basicOps': [/\b(if|else|continue|switch|case|default|break|return|for)(?=[^\w])/g, '<span class=js-basic>$1</span>'],
 
-			'assignment': [/(.+?)((?=\s{0,}=\s{0,}\({0,}\s{0,}function))/g, '<span class=js-assignment>$1</span>$2'],
+			'assignment': [/([^\.]\w*?)((?=\s{0,}=\s{0,}\({0,}\s{0,}function))/g, '<span class=js-assignment>$1</span>$2'],
 
 			// variable assignment keywords
-			'declarations': [/\b(function|var|const|in|new)(?=[^\w])/g, '<span class=js-declaration>$1</span>'],
-
-			// dot methods
-			'methods': [/(\.\w+)(\(.*?\))/g, '<span class=js-method-reg>$1</span>$2'],
+			'declarations': [/\b(function|var|const|in|new|this)(?=[^\w])/g, '<span class=js-declaration>$1</span>'],
 
 			// frequently used document methods
 			'specialMethods': [/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, '<span class=js-method-special>$1</span>'],
 
 			// global javascript objects/packages
-			'global': [/\b(console|document|location|history|localStorage|Math|window)/g, '<span class=js-global>$1</span>'],
+			'global': [/\b(console|document|location|history|localStorage|Math|window|alert|setTimeout|setInterval)(?=[^\w])/g, '<span class=js-global>$1</span>'],
 
 			// empty\NULL valued keywords
 			'empty': [/\b(null|undefined)/g, '<span class=js-empty>$1</span>'],
@@ -54,9 +55,6 @@
 
 			// numeric values
 			'numberLiteral': [/(\d)/g, '<span class=js-numeric>$1</span>'],
-
-			// function arguments - tricky
-			// 'args': [/function\s{0,}\((.*?)\)/g, '(<span class=js-args>$1</span>)'],
 
 			// inline comments
 			'inlineCom': [/(\/{2}.*?\n+)/g, '<span class=js-comment-il>$1</span>'],
@@ -81,7 +79,6 @@
 			
 			// apply language highlighting rules to text
 			for(var feature in lang) {
-
 				textBody = _byFeature(textBody, lang[feature]);
 			}
 			
