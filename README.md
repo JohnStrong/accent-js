@@ -1,4 +1,4 @@
 accent-js
 =========
 
-simple multi language code highlighting library implmented in javascript
+simple multi language code highlighting library implemented in javascript

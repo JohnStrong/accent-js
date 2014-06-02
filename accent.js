@@ -5,9 +5,7 @@
  *		implemented in javascript, this project aims to be a simple multi language code highlighting library,
  *		taking stylistic influence from various popular text editors
  *
- *		I do NOT intend to implement highlighting for all languages or even most.
- *
- *		I plan to implement code highlighting for JavaScript, Node? and Erlang
+ *		I do NOT intend to implement highlighting for all languages or even most
  **/
 
 ;(function() {
