@@ -7,6 +7,11 @@
 <body>
 <pre>
 <code class="code">
+		
+	/**
+	 *	Accent.js - v0.1
+	 **/
+
 	var me = {
 		'firstname': 'John',
 		'surname': 'Strong',
@@ -32,6 +37,8 @@
 			jane = new Person('jane', 'doe', 35);
 
 		alert(john.firstname);
+
+		console.log(typeof me.__proto__);
 
 		if(jane.age < john.age) {
 			throw new Error('<test></test>');

@@ -41,6 +41,8 @@
 			// variable assignment keywords
 			'declarations': [/\b(function|var|const|in|new|this)(?=[^\w])/g, '<span class=js-declaration>$1</span>'],
 
+			// prototype references
+			'prototype': [/\b(prototype|__proto__)(?=[^\w])/g, '<span class="js-prototype">$1</span>'],
 			// frequently used document methods
 			'specialMethods': [/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, '<span class=js-method-special>$1</span>'],
 
@@ -51,7 +53,7 @@
 			'empty': [/\b(null|undefined)/g, '<span class=js-empty>$1</span>'],
 
 			// basic types and special type checking keywords
-			'types': [/\b(Array|String|Function|Object|Number|Date|Error|typeof|instanceof)/g, '<span class=js-types>$1</span>'],
+			'types': [/\b(Array|String|Function|Object|Number|Date|Error|typeof|instanceof)/g, '<span class=js-type>$1</span>'],
 
 			// numeric values
 			'numberLiteral': [/(\d)/g, '<span class=js-numeric>$1</span>'],

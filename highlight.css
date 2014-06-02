@@ -10,7 +10,7 @@
 }
 
 .js-global, .js-method-special {
-	color: #a12;
+	color: #21a;
 }
 
 .js-doc {
@@ -33,6 +33,10 @@
 	color: #290;
 }
 
+.js-prototype {
+	color: #701;
+}
+
 .js-regexp {
 	color: #A52;
 }
@@ -45,7 +49,9 @@
 	color: #555;
 }
 
-.js-types {
+.js-type {
+	color: #01A;
+} {
 	color: #04a;
 }
 
