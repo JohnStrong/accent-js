@@ -3,4 +3,4 @@ accent-js
 
 simple multi language code highlighting library implmented in javascript
 
-![alt tag](./examples/javascript.png)
+<img src="./examples/javascript.png">
