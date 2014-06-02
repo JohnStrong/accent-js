@@ -16,7 +16,7 @@
 
 	// return expressions and corresponding identifier for each feature of supported language
 	// e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
-	var language = {
+	var _language = {
 
 		'javascript': {
 
@@ -136,7 +136,7 @@
 
 	// outward facing reference
 	// clean up closure functionality, implment a less general condition evaluation function
-	highlight = ( function(parse, language) {
+	_highlight = ( function(parse, language) {
 
 		var _illegalArgumentsError = 'both identifier and language parameters must be strings',
 
@@ -196,8 +196,8 @@
 			};
 		};
 
-	})(_parse, language);
+	})(_parse, _language);
 
-	window.highlight = highlight;
+	window.highlight = _highlight;
 
 })();
