@@ -25,44 +25,87 @@
 			'htmlCloseTag': [/>/g, '&gt'],
 
 			// regular expression literals
-			'regExp': [/(\/.*\/(\w+))(?=[^\s])/g, '<span class=js-regexp>$1</span>'],
+			'regExp': [
+				/(\/.*\/(\w+))(?=[^\s])/g, 
+				'<span class=js-regexp>$1</span>'
+			],
 
 			// double qouted trhing
-			'doubleStr': [/"(.*?)"/g, '<span class=js-double-str>"$1"</span>'],
+			'doubleStr': [
+				/"(.*?)"/g, 
+				'<span class=js-double-str>"$1"</span>'
+			],
 
 			// single qouted string
-			'singleStr': [/'(.*?)'/g, '<span class=js-single-str>\'$1\'</span>'],
+			'singleStr': [
+				/'(.*?)'/g, 
+				'<span class=js-single-str>\'$1\'</span>'
+			],
 
 			// common language operators such as conditionals and loops
-			'basicOps': [/\b(if|else|continue|switch|case|default|break|return|for)(?=[^\w])/g, '<span class=js-basic>$1</span>'],
+			'basicOps': [
+				/\b(if|else|continue|switch|case|default|break|return|for)(?=[^\w])/g, 
+				'<span class=js-basic>$1</span>'
+			],
 
-			'assignment': [/([^\.]\w*?)((?=\s{0,}=\s{0,}\({0,}\s{0,}function))/g, '<span class=js-assignment>$1</span>$2'],
+			'assignment': [
+				/([^\.]\w*?)((?=\s{0,}=\s{0,}\({0,}\s{0,}function))/g, 
+				'<span class=js-assignment>$1</span>$2'
+			],
 
 			// variable assignment keywords
-			'declarations': [/\b(function|var|const|in|new|this)(?=[^\w])/g, '<span class=js-declaration>$1</span>'],
+			'declarations': [
+				/\b(function|var|const|in|new|this)(?=[^\w])/g, 
+				'<span class=js-declaration>$1</span>'
+			],
 
 			// prototype references
-			'prototype': [/\b(prototype|__proto__)(?=[^\w])/g, '<span class="js-prototype">$1</span>'],
+			'prototype': [
+				/\b(prototype|__proto__)(?=[^\w])/g, 
+				'<span class="js-prototype">$1</span>'
+			],
+
 			// frequently used document methods
-			'specialMethods': [/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, '<span class=js-method-special>$1</span>'],
+			'specialMethods': [
+				/(\.\bgetElementById|getElementsByClassName|getElementsByTagName)/g, 
+				'<span class=js-method-special>$1</span>'
+			],
 
 			// global javascript objects/packages
-			'global': [/\b(console|document|location|history|localStorage|Math|window|alert|setTimeout|setInterval)(?=[^\w])/g, '<span class=js-global>$1</span>'],
+			'global': [
+				/\b(console|document|location|history|localStorage|Math|window|alert|setTimeout|setInterval)(?=[^\w])/g,
+				 '<span class=js-global>$1</span>'
+			],
 
 			// empty\NULL valued keywords
-			'empty': [/\b(null|undefined)/g, '<span class=js-empty>$1</span>'],
+			'empty': [
+				/\b(null|undefined)/g, 
+				'<span class=js-empty>$1</span>'
+			],
 
 			// basic types and special type checking keywords
-			'types': [/\b(Array|String|Function|Object|Number|Date|Error|typeof|instanceof)/g, '<span class=js-type>$1</span>'],
+			'types': [
+				/\b(Array|String|Function|Object|Number|Date|Error|typeof|instanceof)/g, 
+				'<span class=js-type>$1</span>'
+			],
 
 			// numeric values
-			'numberLiteral': [/(\d)/g, '<span class=js-numeric>$1</span>'],
+			'numberLiteral': [
+				/(\d)/g, 
+				'<span class=js-numeric>$1</span>'
+			],
 
 			// inline comments
-			'inlineCom': [/(\/{2}.*?\n+)/g, '<span class=js-comment-il>$1</span>'],
+			'inlineCom': [
+				/(\/{2}.*?\n+)/g, 
+				'<span class=js-comment-il>$1</span>'
+			],
 
 			// multiple line comments
-			'multiLineCom': [/(\/\*(.|[\r\n])*\*\/)/g, '<span class=js-comment-ml>$1</span>']
+			'multiLineCom': [
+				/(\/\*(.|[\r\n])*\*\/)/g, 
+				'<span class=js-comment-ml>$1</span>'
+			]
 		}
 	},
 
