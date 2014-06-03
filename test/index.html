@@ -43,22 +43,22 @@
 
 		if(jane.age < john.age) {
 			throw new Error('<test></test>');
-		}	
+		}
+
+		return (Math.random() < 0.5)? john : undefined;	
 	}
 
-	test();
-</code>
-<code class="code">
-	var x = null,
-	y = undefined,
-	z = (x == y) ? false : true,
+	var maybePerson = test(),
 
-	array = [],
-	object = {};
+	div = <div>Test</div>,
+	p = '<p>-666</p>',
 
-	document.getElementById("test");
-	document.getElementsByClassName("multiple");
-	document.getElementsByTagName("div");
+	hex = 0xFF;
+
+	if(maybePerson !== undefined) {
+		p.replace(/-666/g, '' + div + '');
+	}
+
 </code>
 <script src="./../accent.js"></script>
 <script>

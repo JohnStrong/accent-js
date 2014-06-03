@@ -22,9 +22,9 @@
 			'htmlOpenTag': [/</g, '&lt'],
 			'htmlCloseTag': [/>/g, '&gt'],
 
-			// regular expression literals
+			// regular expression literals: fix...
 			'regExp': [
-				/(\/.*\/(\w+))(?=[^\s])/g, 
+				/(\/.+?\/(g|i|m|y){0,1})/g, 
 				'<span class=js-regexp>$1</span>'
 			],
 
@@ -41,52 +41,52 @@
 			],
 
 			// common language operators such as conditionals and loops
-			'operationKeywords': [
-				/\b(if|else|continue|switch|case|default|break|return|for)(?=[^\w])/g, 
+			'operation': [
+				/\b(if|else|continue|switch|case|default|break|return|for|try|catch)(?=[^\w])/g, 
 				'<span class=js-operation><span class=js-keyword>$1</span></span>'
 			],
 
 			// variable assignment keywords
-			'declarationKeywords': [
-				/\b(function|var|const|in|new|this|prototype)(?=[^\w])/g, 
+			'declaration': [
+				/([^.]\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
 				'<span class=js-declaration><span class=js-keyword>$1</span></span>'
 			],
 
 			// frequently used document methods
 			'specials': [
-				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|log|alert|setTimeout|setInterval)/g, 
+				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of)/g, 
 				'<span class=js-special>$1</span>'
-			],
-
-			// global javascript objects/packages
-			'global': [
-				/\b(console|document|location|history|localStorage|Math|window)(?=[^\w])/g,
-				 '<span class=js-global>$1</span>'
 			],
 
 			// basic types and special type checking keywords
 			'types': [
-				/\b(Array|String|Function|Object|Number|Date|Error|null|undefined|true|false)/g, 
+				/\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)/g, 
 				'<span class=js-type>$1</span>'
 			],
 
 			// numeric values
-			'numberLiteral': [
-				/(\d)/g, 
+			'number': [
+				/(-{0,1}\d+\.{0,1}\d+)(?=[^\w])/g, 
+				'<span class=js-numeric>$1</span>'
+			],
+
+			// hexadecimal bitwise
+			'hexadecimal': [
+				/(-{0,1}0x\w+)/g,
 				'<span class=js-numeric>$1</span>'
 			],
 
 			// inline comments
 			'inlineCom': [
 				/(\/{2}.*?\n+)/g, 
-				'<span class=js-comment-il>$1</span>'
+				'<span class=js-comment>$1</span>'
 			],
 
 			// multiple line comments
 			'multiLineCom': [
 				/(\/\*(.|[\r\n])*\*\/)/g, 
-				'<span class=js-comment-ml>$1</span>'
-			]
+				'<span class=js-comment>$1</span>'
+			],
 		}
 	},
 

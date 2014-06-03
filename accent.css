@@ -5,24 +5,16 @@
 /*************************************
  * JAVASCRIPT Highlighter Properties
  *************************************/
-.js-operation {
-	color: #09a;
-}
-
-.js-special {
-	color: #21a;
-}
-
-.js-doc {
-	color: #a02;
-}
-
 .js-keyword {
 	font-weight: bold !important;
 }
 
-.js-declaration {
+.js-declaration, .js-operation, .js-special {
 	color: #06D;
+}
+
+.js-doc {
+	color: #a02;
 }
 
 .js-args {
@@ -41,22 +33,11 @@
 	color: #A52;
 }
 
-.js-comment-il {
-	color: #666;
+.js-comment {
+	color: #AAA;
+	font-style: italic;
 }
 
-.js-comment-ml {
-	color: #555;
-}
-
-.js-type {
-	color: #01A;
-}
-
-.js-numeric {
-	color: #c66;
-}
-
-.js-global {
-	color: #A00;
+.js-type, .js-numeric {
+	color: #C00;
 }
