@@ -18,22 +18,19 @@
 
 		'javascript': {
 
-			// escape html characters ... not perfect yet
-			/*
-			'amp': [/&/g, '&amp;'],
-			*/
+			// escape html open/close tags
+			'EscapeHTML': [
+				/[<>]/g,
+				function(match) {
+					var escaped = '&lt;';
 
-			'htmlOpenTag': [/</g, '&lt;'],
+					if(match === '>') escaped = '&gt;'
 
-			'htmlCloseTag': [/>/g, '&gt;'],
-
-			// regular expression literals: fix...
-			'regExp': [
-				/(\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g, 
-				'<span class=js-regexp>$1</span>'
+					return escaped;
+				}
 			],
 
-			// double qouted trhing
+			// double qouted string
 			'doubleStr': [
 				/"(.*?)"/g, 
 				'<span class=js-double-str>"$1"</span>'
