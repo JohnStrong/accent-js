@@ -8,7 +8,7 @@
  *		I do NOT intend to implement highlighting for all languages or even most
  **/
 
-;(function() {
+;( function() {
 
 	'use strict';
 
@@ -18,13 +18,18 @@
 
 		'javascript': {
 
-			// escape special characters
-			'htmlOpenTag': [/</g, '&lt'],
-			'htmlCloseTag': [/>/g, '&gt'],
+			// escape html characters ... not perfect yet
+			/*
+			'amp': [/&/g, '&amp;'],
+			*/
+
+			'htmlOpenTag': [/</g, '&lt;'],
+
+			'htmlCloseTag': [/>/g, '&gt;'],
 
 			// regular expression literals: fix...
 			'regExp': [
-				/(\/.+?\/(g|i|m|y){0,1})/g, 
+				/(\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g, 
 				'<span class=js-regexp>$1</span>'
 			],
 
@@ -42,26 +47,34 @@
 
 			// common language operators such as conditionals and loops
 			'operation': [
-				/\b(if|else|continue|switch|case|default|break|return|for|try|catch)(?=[^\w])/g, 
-				'<span class=js-operation><span class=js-keyword>$1</span></span>'
+				/([^\w])\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
+				'$1<span class=js-operation><span class=js-keyword>$2</span></span>'
 			],
 
 			// variable assignment keywords
 			'declaration': [
-				/([^.]\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
-				'<span class=js-declaration><span class=js-keyword>$1</span></span>'
+				/([^\w])([^.]\W\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
+				'$1<span class=js-declaration><span class=js-keyword>$2</span></span>'
 			],
 
-			// frequently used document methods
+			// frequently used methods
 			'specials': [
 				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of)/g, 
 				'<span class=js-special>$1</span>'
 			],
 
+			// common dom methods
+			'dom methods': [
+				/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
+				'<span class=js-dom>$1</span>'
+			],
+
+			// globals [window]
+
 			// basic types and special type checking keywords
 			'types': [
-				/\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)/g, 
-				'<span class=js-type>$1</span>'
+				/([^\w])\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
+				'$1<span class=js-type>$2</span>'
 			],
 
 			// numeric values
@@ -86,7 +99,7 @@
 			'multiLineCom': [
 				/(\/\*(.|[\r\n])*\*\/)/g, 
 				'<span class=js-comment>$1</span>'
-			],
+			]
 		}
 	},
 
@@ -181,4 +194,4 @@
 
 	window.accent = accent;
 
-})();
+} )();
