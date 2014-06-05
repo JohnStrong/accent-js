@@ -56,7 +56,7 @@
 
 			// frequently used methods
 			'specials': [
-				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of)/g, 
+				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
 				'<span class=js-special>$1</span>'
 			],
 
@@ -145,7 +145,9 @@
 			
 			// apply language highlighting rules to text
 			for(var feature in lang) {
-				textBody = _byFeature(textBody, lang[feature]);
+				if(lang.hasOwnProperty(feature)) {	
+					textBody = _byFeature(textBody, lang[feature]);
+				}
 			}
 			
 			// replace plain node text body with highlighted text body
