@@ -1,6 +1,18 @@
 /*************************************
- * General Language Properties
+ * General Properties
  *************************************/
+
+/*************************************
+ * THEME properties
+ *************************************/
+.sharpen {
+	background-color: #222;
+	color: #DDD;
+	
+	overflow: scroll;
+	word-wrap: normal;
+	padding: 1.2%;
+}
 
 /*************************************
  * JAVASCRIPT Highlighter Properties
@@ -10,7 +22,7 @@
 }
 
 .js-declaration, .js-operation, .js-special {
-	color: #06D;
+	color: #69F;
 }
 
 .js-doc {
@@ -21,16 +33,12 @@
 	color: #aaa;
 }
 
-.js-double-str {
-	color: #590;
-}
-
-.js-single-str {
-	color: #290;
+.js-str {
+	color: #6B6;
 }
 
 .js-regexp {
-	color: #A52;
+	color: #A84;
 }
 
 .js-comment {
@@ -43,5 +51,9 @@
 }
 
 .js-type, .js-numeric {
-	color: #C50;
+	color: #F80;
+}
+
+.js-global {
+	color: #C8F;
 }

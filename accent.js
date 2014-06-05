@@ -30,28 +30,28 @@
 				}
 			],
 
-			// double qouted string
-			'doubleStr': [
-				/"(.*?)"/g, 
-				'<span class=js-double-str>"$1"</span>'
-			],
+			// regexp literals
+			'regExp': [
+				/(\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g, 
+ 				'<span class=js-regexp>$1</span>'
+ 			],
 
-			// single qouted string
-			'singleStr': [
-				/'(.*?)'/g, 
-				'<span class=js-single-str>\'$1\'</span>'
+			// double qouted string
+			'string': [
+				/(".*?"|'.*?')/g, 
+				'<span class=js-str>$1</span>'
 			],
 
 			// common language operators such as conditionals and loops
 			'operation': [
-				/([^\w])\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
-				'$1<span class=js-operation><span class=js-keyword>$2</span></span>'
+				/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
+				'<span class=js-operation><span class=js-keyword>$1</span></span>'
 			],
 
 			// variable assignment keywords
 			'declaration': [
-				/([^\w])([^.]\W\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
-				'$1<span class=js-declaration><span class=js-keyword>$2</span></span>'
+				/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
+				'<span class=js-declaration><span class=js-keyword>$1</span></span>'
 			],
 
 			// frequently used methods
@@ -67,6 +67,10 @@
 			],
 
 			// globals [window]
+			'global': [
+				/\b(window|console|document)/g,
+				'<span class=js-global><span class=js-keyword>$1</span></span>'
+			],
 
 			// basic types and special type checking keywords
 			'types': [
@@ -100,6 +104,32 @@
 		}
 	},
 
+	// formats the code content with a default theme
+	_format = ( function() {
+
+		var theme = 'sharpen',
+
+		// formats dom node by wrapping it with a HTML pre node
+		 _wrapWith = function(domNode, wrapper) {
+			var parent = domNode.parentNode,
+				pre = document.createElement(wrapper);
+
+				parent.replaceChild(pre, domNode);
+				pre.appendChild(domNode);
+		};
+
+		return function(domNode) {
+
+			// wrap with pre formatter tag
+			_wrapWith(domNode, 'pre');
+
+			// add theme to pre wrapper
+			domNode.parentNode.className = theme;
+
+		};
+
+	} )(),
+
 	// parses element text body according to the selected language property rules (see language)
 	_parse = ( function() {
 
@@ -122,27 +152,17 @@
 			domNode.innerHTML = textBody;
 		};
 
-	})(),
+	} )(),
 
 
 	// outward facing reference
 	// clean up closure functionality, implment a less general condition evaluation function
-	accent = ( function(parse, language) {
+	accent = ( function(format, parse, language) {
 
 		var _illegalArgumentsError = 'both identifier and language parameters must be strings',
-
-		// TODO: make it more useful!!!!
+			
 		_is = function(args, condition) {
 			return condition(args);
-		},
-
-		// formats dom node by wrapping it with a HTML pre node
-		_wrapWithPre = function(domNode) {
-			var parent = domNode.parentNode,
-				pre = document.createElement('pre');
-
-				parent.replaceChild(pre, domNode);
-				pre.appendChild(domNode);
 		};
 
 		return function(identifier, lang) {
@@ -167,27 +187,17 @@
 			}
 
 
-			// parse and highlight each selected dom element
-
+			// format and parse each selected dom node
 			for(var ith = 0; ith < config.elems.length; ith++) {
 
-				var current = config.elems[ith],
+				var current = config.elems[ith];
 
-					// check whether node needs to be preformatted (check out HTML PRE)
-					isNodePreformatted = _is(current.parentNode.nodeName, function(_name) {
-						return _name === 'PRE';
-					});
-
-				// format the current node
-				if(!isNodePreformatted) {
-					_wrapWithPre(current);
-				}
-
+				format(current);
 				parse(current, config.lang);
 			};
 		};
 
-	})(_parse, _language);
+	})(_format, _parse, _language);
 
 	window.accent = accent;
 
