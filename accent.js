@@ -24,7 +24,7 @@
 				function(match) {
 					var escaped = '&lt;';
 
-					if(match === '>') escaped = '&gt;'
+					if(match === '>') { escaped = '&gt;' }
 
 					return escaped;
 				}
@@ -162,9 +162,11 @@
 	accent = ( function(format, parse, language) {
 
 		var _illegalArgumentsError = 'both identifier and language parameters must be strings',
-			
-		_is = function(args, condition) {
-			return condition(args);
+		
+		// reliable way to check type of accent function arguments
+		_is = function(obj, type) {
+			var clas = Object.prototype.toString.call(obj).slice(8, -1);
+			return clas === type;
 		};
 
 		return function(identifier, lang) {
@@ -173,13 +175,8 @@
 
 			// basic input validation of function params
 
-			isidentifierString = _is(identifier, function(_class) {
-				return (_class && typeof _class === 'string');
-			}),
-
-			isLangString = _is(lang, function(_ln) {
-				return (_ln && typeof _ln === 'string');
-			});
+			isidentifierString = _is(identifier, 'String'),
+			isLangString = _is(lang, 'String');
 			
 			if(isidentifierString && isLangString) {
 				config.elems = document.getElementsByClassName(identifier);
@@ -190,11 +187,13 @@
 
 
 			// format and parse each selected dom node
+
 			for(var ith = 0; ith < config.elems.length; ith++) {
 
 				var current = config.elems[ith];
 
 				format(current);
+				
 				parse(current, config.lang);
 			};
 		};
