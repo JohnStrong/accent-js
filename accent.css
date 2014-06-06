@@ -7,11 +7,11 @@
  *************************************/
 
  pre[class*='acc-'] {
- 	overflow: scroll;
+ 	overflow-x: scroll;
 	word-wrap: normal;
 	padding: 1.2%;
  }
- 
+
 .acc-dark {
 	background-color: #222;
 	color: #DDD;

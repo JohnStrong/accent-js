@@ -14,27 +14,37 @@
 
 	'use strict';
 
-	// return expressions and corresponding identifier for each feature of supported language
-	// e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
-	var _language = ( function() {
+	/**
+	 *	supported languages namespace
+	 *
+	 *	return expressions and corresponding identifier for each feature of supported language
+	 * 	e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
+	 **/
+	var _language = {};
 
-		// removes accewnt syntax highlighting spans from string
-		var forgetAccent = /\<span\s+class=acc-js.*?>(.*?)<\/span>/g;
+	_language['javascript'] = ( function() {
+
+		// remove previous parser nodes
+		// highlight with syntax class
+		var highlightIgnoreRest = function(syntaxClass) {
+			return function(match) {	
+				var escaped = match.replace(/\<span\s+class=acc-js.*?>(.*?)<\/span>/g, '$1');
+				return '<span class=' + syntaxClass + '>' + escaped + '</span>';
+			};
+		},
+
+		escapeWith = function(replacement) {
+			return function() {
+				return replacement;
+			};
+		};
 
 		return {
 
-		'javascript': {
-
-			// escape html open/close tags
-			'EscapeHTML': [
-				/[<>]/g,
-				function(match) {
-					var escaped = '&lt;';
-
-					if(match === '>') { escaped = '&gt;' }
-
-					return escaped;
-				}
+			// escape open html tag
+			'escapeHTMLOpen': [
+				/</g,
+				escapeWith('&lt;')
 			],
 
 			// regexp literals
@@ -86,40 +96,23 @@
 			],
 
 
-
 			// double/single qouted string
 			'string': [
 				/(".*?"|'.*?')/g, 
-				function(match) {
-
-					// remove previous parsers nodes
-					var escaped = match.replace(forgetAccent, '$1');
-
-					// add string highlighting
-					return '<span class=acc-js-string>' + escaped + '</span>';
-				}
+				highlightIgnoreRest('acc-js-string')
 			],
 
 			// comments
 			'inlineCom': [
 				/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
-				function(match) {
-
-					// remove previous parser nodes
-					var escaped = match.replace(forgetAccent, '$1');
-
-					// add comment highlighting
-					return '<span class=acc-js-comment>' + escaped + '</span>';
-				}
+				highlightIgnoreRest('acc-js-comment')
 			]
-		}
-
 		};
-
-	} )(),
+		
+	} )();
 
 	// formats the code content with a default theme
-	_format = ( function() {
+	var _format = ( function() {
 
 		var defaultTheme = 'acc-dark',
 
