@@ -8,13 +8,20 @@
  *		I do NOT intend to implement highlighting for all languages or even most
  **/
 
+
+// TODO generalize language object to parse regexp patterns with generic function
 ;( function() {
 
 	'use strict';
 
 	// return expressions and corresponding identifier for each feature of supported language
 	// e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
-	var _language = {
+	var _language = ( function() {
+
+		// removes accewnt syntax highlighting spans from string
+		var forgetAccent = /\<span\s+class=acc-js.*?>(.*?)<\/span>/g;
+
+		return {
 
 		'javascript': {
 
@@ -33,81 +40,88 @@
 			// regexp literals
 			'regExp': [
 				/(\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g, 
- 				'<span class=js-regexp>$1</span>'
+ 				'<span class=acc-js-regexp>$1</span>'
  			],
-
-			// double qouted string
-			'string': [
-				/(".*?"|'.*?')/g, 
-				'<span class=js-str>$1</span>'
-			],
 
 			// common language operators such as conditionals and loops
 			'operation': [
 				/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
-				'<span class=js-operation><span class=js-keyword>$1</span></span>'
+				'<span class=acc-js-operation>$1</span>'
 			],
 
 			// variable assignment keywords
 			'declaration': [
 				/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
-				'<span class=js-declaration><span class=js-keyword>$1</span></span>'
+				'<span class=acc-js-declaration>$1</span>'
 			],
 
 			// frequently used methods
 			'specials': [
 				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
-				'<span class=js-special>$1</span>'
+				'<span class=acc-js-special>$1</span>'
 			],
 
 			// common dom methods
 			'dom methods': [
 				/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
-				'<span class=js-dom>$1</span>'
+				'<span class=acc-js-dom>$1</span>'
 			],
 
 			// globals [window]
 			'global': [
 				/\b(window|console|document)/g,
-				'<span class=js-global><span class=js-keyword>$1</span></span>'
+				'<span class=acc-js-global>$1</span>'
 			],
 
 			// basic types and special type checking keywords
 			'types': [
 				/([^\w])\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
-				'$1<span class=js-type>$2</span>'
+				'$1<span class=acc-js-type>$2</span>'
 			],
 
-			// numeric values
+			// numeric values (including hexadecimal)
 			'number': [
-				/(-{0,1}\d+\.{0,1}\d+)(?=[^\w])/g, 
-				'<span class=js-numeric>$1</span>'
+				/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
+				'<span class=acc-js-numeric>$1</span>'
 			],
 
-			// hexadecimal bitwise
-			'hexadecimal': [
-				/(-{0,1}0x\w+)/g,
-				'<span class=js-numeric>$1</span>'
+
+
+			// double/single qouted string
+			'string': [
+				/(".*?"|'.*?')/g, 
+				function(match) {
+
+					// remove previous parsers nodes
+					var escaped = match.replace(forgetAccent, '$1');
+
+					// add string highlighting
+					return '<span class=acc-js-string>' + escaped + '</span>';
+				}
 			],
 
-			// inline comments
+			// comments
 			'inlineCom': [
-				/(\/{2}.*?\n+)/g, 
-				'<span class=js-comment>$1</span>'
-			],
+				/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
+				function(match) {
 
-			// multiple line comments
-			'multiLineCom': [
-				/(\/\*(.|[\r\n])*\*\/)/g, 
-				'<span class=js-comment>$1</span>'
+					// remove previous parser nodes
+					var escaped = match.replace(forgetAccent, '$1');
+
+					// add comment highlighting
+					return '<span class=acc-js-comment>' + escaped + '</span>';
+				}
 			]
 		}
-	},
+
+		};
+
+	} )(),
 
 	// formats the code content with a default theme
 	_format = ( function() {
 
-		var theme = 'sharpen',
+		var defaultTheme = 'acc-dark',
 
 		// formats dom node by wrapping it with a HTML pre node
 		 _wrapWith = function(domNode, wrapper) {
@@ -124,7 +138,7 @@
 			_wrapWith(domNode, 'pre');
 
 			// add theme to pre wrapper
-			domNode.parentNode.className = theme;
+			domNode.parentNode.className = defaultTheme;
 
 		};
 

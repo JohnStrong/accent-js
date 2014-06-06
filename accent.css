@@ -5,55 +5,59 @@
 /*************************************
  * THEME properties
  *************************************/
-.sharpen {
-	background-color: #222;
-	color: #DDD;
-	
-	overflow: scroll;
+
+ pre[class*='acc-'] {
+ 	overflow: scroll;
 	word-wrap: normal;
 	padding: 1.2%;
+ }
+ 
+.acc-dark {
+	background-color: #222;
+	color: #DDD;
 }
 
 /*************************************
  * JAVASCRIPT Highlighter Properties
  *************************************/
-.js-keyword {
+.acc-dark .acc-js-declaration, 
+.acc-dark .acc-js-operation, 
+.acc-dark .acc-js-special {
+	color: #69F;
 	font-weight: bold !important;
 }
 
-.js-declaration, .js-operation, .js-special {
-	color: #69F;
+.acc-dark .acc-js-global {
+	color: #C8F;
+	font-weight: bold !important;
 }
 
-.js-doc {
-	color: #a02;
-}
-
-.js-args {
-	color: #aaa;
-}
-
-.js-str {
-	color: #6B6;
-}
-
-.js-regexp {
-	color: #A84;
-}
-
-.js-comment {
+.acc-dark .acc-js-comment {
 	color: #AAA;
 	font-style: italic !important;
 }
 
-.js-dom {
+.acc-dark .acc-js-doc {
+	color: #a02;
+}
+
+.acc-dark .acc-js-args {
+	color: #aaa;
+}
+
+.acc-dark .acc-js-string {
+	color: #6B6;
+}
+
+.acc-dark .acc-js-regexp {
+	color: #A84;
+}
+
+.acc-dark .acc-js-dom {
 	color: #D22;
 }
 
-.js-type, .js-numeric {
+.acc-dark .acc-js-type, .acc-dark .acc-js-numeric {
 	color: #F80;
 }
 
-.js-global {
-	color: #C8F;
-}
