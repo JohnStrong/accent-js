@@ -201,8 +201,6 @@
 				return preset === theme;
 			})[0];
 
-			console.log(config.theme, theme);
-			
 			if(config.theme === undefined) {
 				throw new Error(_errors._unknownThemeError);
 			}
