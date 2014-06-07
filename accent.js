@@ -185,7 +185,7 @@
 		};
 
 		// add option param
-		return function(identifier, lang, props) {
+		return function(identifier, lang, theme) {
 
 			var config = {},
 
