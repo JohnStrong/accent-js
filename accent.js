@@ -26,14 +26,14 @@
 
 		// remove previous parser nodes
 		// highlight with syntax class
-		var highlightIgnoreRest = function(syntaxClass) {
+		var _highlightIgnoreRest = function(syntaxClass) {
 			return function(match) {	
 				var escaped = match.replace(/\<span\s+class=acc-js.*?>(.*?)<\/span>/g, '$1');
-				return '<span class=' + syntaxClass + '>' + escaped + '</span>';
+				return '<span class='.concat(syntaxClass,'>',escaped,'</span>');
 			};
 		},
 
-		escapeWith = function(replacement) {
+		_escapeWith = function(replacement) {
 			return function() {
 				return replacement;
 			};
@@ -44,7 +44,7 @@
 			// escape open html tag
 			'escapeHTMLOpen': [
 				/</g,
-				escapeWith('&lt;')
+				_escapeWith('&lt;')
 			],
 
 			// regexp literals
@@ -99,13 +99,13 @@
 			// double/single qouted string
 			'string': [
 				/(".*?"|'.*?')/g, 
-				highlightIgnoreRest('acc-js-string')
+				_highlightIgnoreRest('acc-js-string')
 			],
 
 			// comments
 			'inlineCom': [
 				/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
-				highlightIgnoreRest('acc-js-comment')
+				_highlightIgnoreRest('acc-js-comment')
 			]
 		};
 		
@@ -113,11 +113,9 @@
 
 	// formats the code content with a default theme
 	var _format = ( function() {
-
-		var defaultTheme = 'acc-dark',
-
+		
 		// formats dom node by wrapping it with a HTML pre node
-		 _wrapWith = function(domNode, wrapper) {
+		var _wrapWith = function(domNode, wrapper) {
 			var parent = domNode.parentNode,
 				pre = document.createElement(wrapper);
 
@@ -125,13 +123,13 @@
 				pre.appendChild(domNode);
 		};
 
-		return function(domNode) {
+		return function(domNode, theme) {
 
 			// wrap with pre formatter tag
 			_wrapWith(domNode, 'pre');
 
 			// add theme to pre wrapper
-			domNode.parentNode.className = defaultTheme;
+			domNode.parentNode.className = 'acc-'.concat(theme);
 
 		};
 
@@ -168,7 +166,12 @@
 	// clean up closure functionality, implment a less general condition evaluation function
 	accent = ( function(format, parse, language) {
 
-		var _illegalArgumentsError = 'both identifier and language parameters must be strings',
+		var _defaultTheme = ['dark', 'light'],
+
+		_errors = {
+			_illegalArgumentsError:'both identifier and language parameters must be strings',
+			_unknownThemeError: 'theme must be a known preset'.concat(' [', _defaultTheme, ']')
+		},
 		
 		// reliable way to check type of accent function arguments
 		_is = function(obj, type) {
@@ -176,7 +179,7 @@
 			return clas === type;
 		};
 
-		return function(identifier, lang) {
+		return function(identifier, lang, theme) {
 
 			var config = {},
 
@@ -189,18 +192,28 @@
 				config.elems = document.getElementsByClassName(identifier);
 				config.lang = language[lang];
 			} else {
-				throw new Error(_illegalArgumentsError);
+				throw new Error(_errors._illegalArgumentsError);
+			}
+
+			// check if a valid theme has been selected
+
+			config.theme = _defaultTheme.filter(function(preset) {
+				return preset === theme;
+			})[0];
+
+			console.log(config.theme, theme);
+			
+			if(config.theme === undefined) {
+				throw new Error(_errors._unknownThemeError);
 			}
 
 
 			// format and parse each selected dom node
-
 			for(var ith = 0; ith < config.elems.length; ith++) {
 
 				var current = config.elems[ith];
 
-				format(current);
-				
+				format(current, config.theme);
 				parse(current, config.lang);
 			};
 		};

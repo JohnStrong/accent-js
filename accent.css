@@ -17,9 +17,25 @@
 	color: #DDD;
 }
 
+.acc-light {
+	background-color: #F5F5F5;
+	color: #222;
+}
+
 /*************************************
  * JAVASCRIPT Highlighter Properties
  *************************************/
+
+/*********** JAVASCRIPT **************/
+
+/* CONSTANT STYLES */
+
+.acc-js-string {
+	color: #6B6;
+}
+
+ /* DARK THEME */
+
 .acc-dark .acc-js-declaration, 
 .acc-dark .acc-js-operation, 
 .acc-dark .acc-js-special {
@@ -37,16 +53,8 @@
 	font-style: italic !important;
 }
 
-.acc-dark .acc-js-doc {
-	color: #a02;
-}
-
 .acc-dark .acc-js-args {
 	color: #aaa;
-}
-
-.acc-dark .acc-js-string {
-	color: #6B6;
 }
 
 .acc-dark .acc-js-regexp {
@@ -61,3 +69,37 @@
 	color: #F80;
 }
 
+/* LIGHT THEME */
+
+.acc-light .acc-js-declaration, 
+.acc-light .acc-js-operation, 
+.acc-light .acc-js-special {
+	color: #F07;
+	font-weight: bold !important;
+}
+
+.acc-light .acc-js-global {
+	color: #55F;
+	font-weight: bold !important;
+}
+
+.acc-light .acc-js-comment {
+	color: #888;
+	font-style: italic !important;
+}
+
+.acc-light .acc-js-args {
+	color: #aaa;
+}
+
+.acc-light .acc-js-regexp {
+	color: #F5A;
+}
+
+.acc-light .acc-js-dom {
+	color: #F62;
+}
+
+.acc-light .acc-js-type, .acc-light .acc-js-numeric {
+	color: #F2A;
+}
