@@ -14,6 +14,11 @@
 
 	'use strict';
 
+	// this allows for a more functionally pure iterations on Dom nodes
+	NodeList.prototype.forEach =
+		HTMLCollection.prototype.forEach = 
+			Array.prototype.forEach;
+
 	// helper methods for parsers of language features
 	var _util = {
 		
@@ -179,7 +184,8 @@
 			return clas === type;
 		};
 
-		return function(identifier, lang, theme) {
+		// add option param
+		return function(identifier, lang, props) {
 
 			var config = {},
 
@@ -205,15 +211,10 @@
 				throw new Error(_errors._unknownThemeError);
 			}
 
-
-			// format and parse each selected dom node
-			for(var ith = 0; ith < config.elems.length; ith++) {
-
-				var current = config.elems[ith];
-
-				format(current, config.theme);
-				parse(current, config.lang);
-			};
+			config.elems.forEach(function(elem) {
+				format(elem, config.theme);
+				parse(elem, config.lang);
+			});
 		};
 
 	})(_format, _parse, _language);
