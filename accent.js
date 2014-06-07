@@ -14,102 +14,102 @@
 
 	'use strict';
 
-	/**
-	 *	supported languages namespace
-	 *
-	 *	return expressions and corresponding identifier for each feature of supported language
-	 * 	e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
-	 **/
-	var _language = {};
-
-	_language['javascript'] = ( function() {
-
+	// helper methods for parsers of language features
+	var _util = {
+		
 		// remove previous parser nodes
 		// highlight with syntax class
-		var _highlightIgnoreRest = function(syntaxClass) {
+		highlightIgnoreRest: function(syntaxClass) {
 			return function(match) {	
 				var escaped = match.replace(/\<span\s+class=acc-js.*?>(.*?)<\/span>/g, '$1');
 				return '<span class='.concat(syntaxClass,'>',escaped,'</span>');
 			};
 		},
 
-		_escapeWith = function(replacement) {
+		// escape regexp match with a replacement string
+		escapeWith: function(replacement) {
 			return function() {
 				return replacement;
 			};
-		};
+		}
+	},
 
-		return {
+	/**
+	 *	supported languages namespace
+	 *
+	 *	return expressions and corresponding identifier for each feature of supported language
+	 * 	e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
+	 **/
+	_language = {};
 
-			// escape open html tag
-			'escapeHTMLOpen': [
-				/</g,
-				_escapeWith('&lt;')
-			],
+	_language['javascript'] = {
 
-			// regexp literals
-			'regExp': [
-				/(\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g, 
- 				'<span class=acc-js-regexp>$1</span>'
- 			],
+		// escape open html tag
+		'escapeHTMLOpen': [
+			/</g,
+			_util.escapeWith('&lt;')
+		],
 
-			// common language operators such as conditionals and loops
-			'operation': [
-				/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
-				'<span class=acc-js-operation>$1</span>'
-			],
+		// common language operators such as conditionals and loops
+		'operation': [
+			/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
+			'<span class=acc-js-operation>$1</span>'
+		],
 
-			// variable assignment keywords
-			'declaration': [
-				/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
-				'<span class=acc-js-declaration>$1</span>'
-			],
+		// variable assignment keywords
+		'declaration': [
+			/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
+			'<span class=acc-js-declaration>$1</span>'
+		],
 
-			// frequently used methods
-			'specials': [
-				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
-				'<span class=acc-js-special>$1</span>'
-			],
+		// frequently used methods
+		'specials': [
+			/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
+			'<span class=acc-js-special>$1</span>'
+		],
 
-			// common dom methods
-			'dom methods': [
-				/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
-				'<span class=acc-js-dom>$1</span>'
-			],
+		// common dom methods
+		'dom methods': [
+			/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
+			'<span class=acc-js-dom>$1</span>'
+		],
 
-			// globals [window]
-			'global': [
-				/\b(window|console|document)/g,
-				'<span class=acc-js-global>$1</span>'
-			],
+		// globals [window]
+		'global': [
+			/\b(window|console|document)/g,
+			'<span class=acc-js-global>$1</span>'
+		],
 
-			// basic types and special type checking keywords
-			'types': [
-				/([^\w])\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
-				'$1<span class=acc-js-type>$2</span>'
-			],
+		// basic types and special type checking keywords
+		'types': [
+			/([^\w])\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
+			'$1<span class=acc-js-type>$2</span>'
+		],
 
-			// numeric values (including hexadecimal)
-			'number': [
-				/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
-				'<span class=acc-js-numeric>$1</span>'
-			],
+		// numeric values (including hexadecimal)
+		'number': [
+			/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
+			'<span class=acc-js-numeric>$1</span>'
+		],
 
+		// double/single qouted string
+		'string': [
+			/(".*?"|'.*?')/g, 
+			_util.highlightIgnoreRest('acc-js-string')
+		],
 
-			// double/single qouted string
-			'string': [
-				/(".*?"|'.*?')/g, 
-				_highlightIgnoreRest('acc-js-string')
-			],
+		// comments
+		'inlineCom': [
+			/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
+			_util.highlightIgnoreRest('acc-js-comment')
+		],
 
-			// comments
-			'inlineCom': [
-				/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
-				_highlightIgnoreRest('acc-js-comment')
-			]
-		};
-		
-	} )();
+		// regexp literals
+		'regExp': [
+			/[^<](\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g,
+			_util.highlightIgnoreRest('acc-js-regexp')
+		],
+	};
 
 	// formats the code content with a default theme
 	var _format = ( function() {
