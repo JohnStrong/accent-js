@@ -62,6 +62,7 @@ Below contains an example project in which the user has created a css file descr
 	for(var ith = 0; ith &lt; 100; i++) {
 		console.log(me.firstname, me.surname, me.age);
 }
+&lt;/code&gt;
 </code>
 
 ### test.js
