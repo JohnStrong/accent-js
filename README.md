@@ -1,7 +1,7 @@
 accent-js
 =========
 
-simple multi language code highlighting library implemented in javascript
+Easy to use, customizable, code highlighting library Implemented with JavaScript & CSS.
 
 ## Dark theme
 `accent('myClassName', 'myLanguage', 'dark')`
