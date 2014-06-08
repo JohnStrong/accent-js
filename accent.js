@@ -219,6 +219,12 @@
 
 	})(_accent, _language);
 
+	/**
+	 *	usage => accent(_className, _language, _theme)
+	 *		_className	:= the class property used to identify the node(s) for highlighting
+	 *		_language	:= the language that the class node(s) describe
+	 *		_theme		:=	the theme (default or custom) accent will use to apply properties to the node(s)
+	 **/
 	window.accent = accent;
 
 } )();
