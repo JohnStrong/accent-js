@@ -19,7 +19,6 @@ Below contains an example project in which the user has created a css file descr
 ### custom.css
 
 <code>
-
 	.acc-custom {
 		background-color: #101;
 		color: #CCC;
