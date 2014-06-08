@@ -58,11 +58,12 @@ Below contains an example project in which the user has created a css file descr
 
 ### test.html
 
-```<code class="test">
+<code>
+&lt;code class="test"&gt;
 	for(var ith = 0; ith &lt; 100; i++) {
 		console.log(me.firstname, me.surname, me.age);
 }
-```
+</code>
 
 ### test.js
 
