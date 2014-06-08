@@ -5,13 +5,10 @@ simple multi language code highlighting library implemented in javascript
 
 ## Javascript
 
-### dark theme
+### dark theme `accent('code', 'javascript', 'dark')`
 ![Alt text](/examples/javascriptThemeDark.PNG "javascript syntax with dark theme")
-### usage
-`accent('code', 'javascript', 'dark')`
 
-### light theme
+### light theme `accent('code', 'javascript', 'light')`
 ![Alt text](/examples/javascriptThemeLight.PNG "javascript syntax with light theme")
-### usage
-`accent('code', 'javascript', 'light')`
+
 
