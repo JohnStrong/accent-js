@@ -14,110 +14,116 @@
 
 	'use strict';
 
-	// this allows for a more functionally pure iterations on Dom nodes
+	// allows for a more functionally pure iterations on Dom node collections
 	NodeList.prototype.forEach =
 		HTMLCollection.prototype.forEach = 
 			Array.prototype.forEach;
 
-	// helper methods for parsers of language features
-	var _util = {
-		
-		// remove previous parser nodes
-		// highlight with syntax class
-		highlightIgnoreRest: function(syntaxClass) {
-			return function(match) {	
-				var escaped = match.replace(/\<span\s+class=acc-js.*?>(.*?)<\/span>/g, '$1');
-				return '<span class='.concat(syntaxClass,'>',escaped,'</span>');
-			};
-		},
-
-		// escape regexp match with a replacement string
-		escapeWith: function(replacement) {
-			return function() {
-				return replacement;
-			};
-		}
-	},
-
 	/**
 	 *	supported languages namespace
 	 *
-	 *	return expressions and corresponding identifier for each feature of supported language
-	 * 	e.g. 'lolcode' -> { 'hai' : [_expression, _identifier], ... }
+	 *	returns expressions and syntax wrappers for each specified language feature
+	 * 	
+	 *	e.g. language = { feature[String] : [ expression[Regexp], wrapper[String] ], ... }
 	 **/
-	_language = {};
+	var _language = {};
 
-	_language['javascript'] = {
+	// helper methods for parsers of language features
+	_language['util'] = {
 
-		// escape open html tag
-		'escapeHTMLOpen': [
-			/</g,
-			_util.escapeWith('&lt;')
-		],
+		// surrounds a string in a span with the class property specified
+		highlight: function(syntaxClass) {
+			return function(match) {
+				return '<span class='.concat(syntaxClass, '>', match, '</span>');
+			};
+		},
 
-		// common language operators such as conditionals and loops
-		'operation': [
-			/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
-			'<span class=acc-js-operation>$1</span>'
-		],
+		// remove syntax node that do not match the specified class
+		// i.e. ignoreNot('js-operation') removes all nodes of a string that do not match 'js-operation '
+		ignoreNot: function(syntaxClass) {
+			
+			var self = this;
 
-		// variable assignment keywords
-		'declaration': [
-			/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
-			'<span class=acc-js-declaration>$1</span>'
-		],
+			return function(match) {	
+				var escaped = match.replace(/\<span\s+class=.*?>(.*?)<\/span>/g, '$1');
 
-		// frequently used methods
-		'specials': [
-			/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
-			'<span class=acc-js-special>$1</span>'
-		],
-
-		// common dom methods
-		'dom methods': [
-			/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
-			'<span class=acc-js-dom>$1</span>'
-		],
-
-		// globals [window]
-		'global': [
-			/\b(window|console|document)/g,
-			'<span class=acc-js-global>$1</span>'
-		],
-
-		// basic types and special type checking keywords
-		'types': [
-			/([^\w])\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
-			'$1<span class=acc-js-type>$2</span>'
-		],
-
-		// numeric values (including hexadecimal)
-		'number': [
-			/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
-			'<span class=acc-js-numeric>$1</span>'
-		],
-
-		// double/single qouted string
-		'string': [
-			/(".*?"|'.*?')/g, 
-			_util.highlightIgnoreRest('acc-js-string')
-		],
-
-		// comments
-		'inlineCom': [
-			/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
-			_util.highlightIgnoreRest('acc-js-comment')
-		],
-
-		// regexp literals
-		'regExp': [
-			/[^<](\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g,
-			_util.highlightIgnoreRest('acc-js-regexp')
-		],
+				return self.highlight(syntaxClass)(escaped);
+			};
+		}
 	};
 
+	// the javascript language parser
+	_language['javascript'] = function(theme) {
+		
+		return {
+
+			// common language operators such as conditionals and loops
+			'operation': [
+				/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
+				_language.util.highlight('js-operation')
+			],
+
+			// variable assignment keywords
+			'declaration': [
+				/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
+				_language.util.highlight('js-declaration')
+			],
+
+			// frequently used methods
+			'specials': [
+				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
+				_language.util.highlight('js-special')
+			],
+
+			// common dom methods
+			'dom methods': [
+				/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
+				_language.util.highlight('js-dom')
+			],
+
+			// globals [window]
+			'global': [
+				/\b(window|console|document)/g,
+				_language.util.highlight('js-global')
+			],
+
+			// basic types and special type checking keywords
+			'types': [
+				/\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
+				_language.util.highlight('js-type')
+			],
+
+			// numeric values (including hexadecimal)
+			'number': [
+				/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
+				_language.util.highlight('js-numeric')
+			],
+
+			// double/single qouted string
+			'string': [
+				/(".*?"|'.*?')/g, 
+				_language.util.ignoreNot('js-string')
+			],
+
+			// comments
+			'inlineCom': [
+				/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
+				_language.util.ignoreNot('js-comment')
+			],
+
+			// regexp literals
+			'regExp': [
+				/[^<](\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g,
+				_language.util.ignoreNot('js-regexp')
+			],
+		};
+	};
+
+	// primary syntax highlighter namespace
+	var _accent = {};
+
 	// formats the code content with a default theme
-	var _format = ( function() {
+	_accent['format'] = ( function() {
 		
 		// formats dom node by wrapping it with a HTML pre node
 		var _wrapWith = function(domNode, wrapper) {
@@ -128,30 +134,30 @@
 				pre.appendChild(domNode);
 		};
 
-		return function(domNode, theme) {
+		return function(domNode) {
 
 			// wrap with pre formatter tag
 			_wrapWith(domNode, 'pre');
 
-			// add theme to pre wrapper
-			domNode.parentNode.className = 'acc-'.concat(theme);
-
+			// prefix theme with the acc flag
+			domNode.parentNode.className = 'acc-'.concat(this.theme);
 		};
 
-	} )(),
+	} )();
 
 	// parses element text body according to the selected language property rules (see language)
-	_parse = ( function() {
+	_accent['parse'] = ( function() {
 
 		var _byFeature = function(textBody, langFeature) {
 			return textBody.replace(langFeature[0], langFeature[1]);
 		};
-
 		
 		// return highlighted text of given dom node for given language
-		return function(domNode, lang) {
+		return function(domNode) {
 			
-			var textBody = domNode.innerHTML;
+			var textBody = domNode.innerHTML,
+				lang = this.lang;
+
 			
 			// apply language highlighting rules to text
 			for(var feature in lang) {
@@ -164,18 +170,27 @@
 			domNode.innerHTML = textBody;
 		};
 
-	} )(),
+	} )();
+
+
+	// runner mathod for accent sytax highlighting
+	_accent['highlight'] = function(config) {
+	
+		var self = this;
+
+		return function(node) {
+			self.format.call(config, node);
+			self.parse.call(config, node);
+		};
+	};
 
 
 	// outward facing reference
 	// clean up closure functionality, implment a less general condition evaluation function
-	accent = ( function(format, parse, language) {
+	var accent = ( function(accent, language) {
 
-		var _defaultTheme = ['dark', 'light'],
-
-		_errors = {
-			_illegalArgumentsError:'both identifier and language parameters must be strings',
-			_unknownThemeError: 'theme must be a known preset'.concat(' [', _defaultTheme, ']')
+		var _errors = {
+			_illegalArgumentsError:'both identifier and language parameters must be strings'
 		},
 		
 		// reliable way to check type of accent function arguments
@@ -188,36 +203,26 @@
 		return function(identifier, lang, theme) {
 
 			var config = {},
+				_acc,
 
 			// basic input validation of function params
-
 			isidentifierString = _is(identifier, 'String'),
-			isLangString = _is(lang, 'String');
+			isLangString = _is(lang, 'String'),
+			isThemeString = _is(theme, 'String');
 			
-			if(isidentifierString && isLangString) {
+			if(isidentifierString && isLangString && isThemeString) {
 				config.elems = document.getElementsByClassName(identifier);
-				config.lang = language[lang];
+				config.lang = language[lang](theme);
+				config.theme = theme;
 			} else {
 				throw new Error(_errors._illegalArgumentsError);
 			}
 
-			// check if a valid theme has been selected
-
-			config.theme = _defaultTheme.filter(function(preset) {
-				return preset === theme;
-			})[0];
-
-			if(config.theme === undefined) {
-				throw new Error(_errors._unknownThemeError);
-			}
-
-			config.elems.forEach(function(elem) {
-				format(elem, config.theme);
-				parse(elem, config.lang);
-			});
+			_acc = accent['highlight'](config);
+			config.elems.forEach(_acc);
 		};
 
-	})(_format, _parse, _language);
+	})(_accent, _language);
 
 	window.accent = accent;
 

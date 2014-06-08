@@ -10,6 +10,7 @@
  	overflow-x: scroll;
 	word-wrap: normal;
 	padding: 1.2%;
+	font-size: 1em;
  }
 
 .acc-dark {
@@ -30,76 +31,77 @@
 
 /* CONSTANT STYLES */
 
-.acc-js-string {
+.acc-dark .js-string,
+.acc-light .js-string {
 	color: #6B6;
 }
 
  /* DARK THEME */
 
-.acc-dark .acc-js-declaration, 
-.acc-dark .acc-js-operation, 
-.acc-dark .acc-js-special {
+.acc-dark .js-declaration, 
+.acc-dark .js-operation, 
+.acc-dark .js-special {
 	color: #69F;
 	font-weight: bold !important;
 }
 
-.acc-dark .acc-js-global {
+.acc-dark .js-global {
 	color: #C8F;
 	font-weight: bold !important;
 }
 
-.acc-dark .acc-js-comment {
+.acc-dark .js-comment {
 	color: #AAA;
 	font-style: italic !important;
 }
 
-.acc-dark .acc-js-args {
+.acc-dark .js-args {
 	color: #aaa;
 }
 
-.acc-dark .acc-js-regexp {
+.acc-dark .js-regexp {
 	color: #A84;
 }
 
-.acc-dark .acc-js-dom {
+.acc-dark .js-dom {
 	color: #D22;
 }
 
-.acc-dark .acc-js-type, .acc-dark .acc-js-numeric {
+.acc-dark .js-type, .acc-dark .js-numeric {
 	color: #F80;
 }
 
 /* LIGHT THEME */
 
-.acc-light .acc-js-declaration, 
-.acc-light .acc-js-operation, 
-.acc-light .acc-js-special {
+.acc-light .js-declaration, 
+.acc-light .js-operation, 
+.acc-light .js-special {
 	color: #F07;
 	font-weight: bold !important;
 }
 
-.acc-light .acc-js-global {
+.acc-light .js-global {
 	color: #55F;
 	font-weight: bold !important;
 }
 
-.acc-light .acc-js-comment {
+.acc-light .js-comment {
 	color: #888;
 	font-style: italic !important;
 }
 
-.acc-light .acc-js-args {
+.acc-light .js-args {
 	color: #aaa;
 }
 
-.acc-light .acc-js-regexp {
+.acc-light .js-regexp {
 	color: #F5A;
 }
 
-.acc-light .acc-js-dom {
+.acc-light .js-dom {
 	color: #F62;
 }
 
-.acc-light .acc-js-type, .acc-light .acc-js-numeric {
+.acc-light .js-type, .acc-light .js-numeric {
 	color: #F2A;
 }

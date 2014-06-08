@@ -30,7 +30,7 @@
 		}
 
 		var test = function() {
-			for(var ith = 0; ith < 100; i++) {
+			for(var ith = 0; ith &lt; 100; i++) {
 				console.log(me.firstname, me.surname, me.age);
 			}
 
@@ -41,17 +41,17 @@
 
 			console.log(typeof me.__proto__);
 
-			if(jane.age < john.age) {
-				throw new Error('<test></test>');
+			if(jane.age &lt; john.age) {
+				throw new Error('&lt;test&gt;&lt;/test&gt;');
 			}
 
-			return (Math.random() < 0.5)? john : undefined;	
+			return (Math.random() &lt; 0.5)? john : undefined;	
 		}
 
 		var maybePerson = test(),
 
-		div = '<div>Test</div>',
-		p = "<p>-666</p>",
+		div = '&lt;div&gt;Test&lt;/div&gt;',
+		p = "&lt;p&gt;-666&lt;/p&gt;",
 
 		myArray1 = [],
 
