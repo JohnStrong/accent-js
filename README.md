@@ -70,5 +70,5 @@ Below contains an example project in which the user has created a css file descr
 
 ### result
 
-!["javascript syntax with custom theme"](/examples/javascriptCustomTheme.PNG "javascript syntax with custom theme")
+!["javascript syntax with custom theme"](/examples/javascriptShortCustomTheme.PNG "javascript syntax with custom theme")
 
