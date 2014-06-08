@@ -53,70 +53,67 @@
 	};
 
 	// the javascript language parser
-	_language['javascript'] = function(theme) {
-		
-		return {
+	_language['javascript'] = {
 
-			// common language operators such as conditionals and loops
-			'operation': [
-				/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
-				_language.util.highlight('js-operation')
-			],
+		// common language operators such as conditionals and loops
+		'operation': [
+			/\b(if|else|continue|switch|case|default|break|return|for|try|catch|throw)(?=[^\w])/g, 
+			_language.util.highlight('js-operation')
+		],
 
-			// variable assignment keywords
-			'declaration': [
-				/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
-				_language.util.highlight('js-declaration')
-			],
+		// variable assignment keywords
+		'declaration': [
+			/(\bfunction|var|const|in|new|this|prototype)(?=[^\w])/g, 
+			_language.util.highlight('js-declaration')
+		],
 
-			// frequently used methods
-			'specials': [
-				/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
-				_language.util.highlight('js-special')
-			],
+		// frequently used methods
+		'specials': [
+			/(\.\bgetElementById|getElementsBy(ClassName|TagName|Name)|(type|instance)of|hasOwnProperty)/g, 
+			_language.util.highlight('js-special')
+		],
 
-			// common dom methods
-			'dom methods': [
-				/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
-				_language.util.highlight('js-dom')
-			],
+		// common dom methods
+		'dom methods': [
+			/(\.\binnerHTML|createElement|parentNode|innerHTML|(append|replace)Child)(?=[^\w])/g,
+			_language.util.highlight('js-dom')
+		],
 
-			// globals [window]
-			'global': [
-				/\b(window|console|document)/g,
-				_language.util.highlight('js-global')
-			],
+		// globals [window]
+		'global': [
+			/\b(window|console|document)/g,
+			_language.util.highlight('js-global')
+		],
 
-			// basic types and special type checking keywords
-			'types': [
-				/\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
-				_language.util.highlight('js-type')
-			],
+		// basic types and special type checking keywords
+		'types': [
+			/\b(Array|String|Function|Object|Number|Date|Boolean|Error|RegExp|Math|null|undefined|true|false)(?=[^\w])/g, 
+			_language.util.highlight('js-type')
+		],
 
-			// numeric values (including hexadecimal)
-			'number': [
-				/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
-				_language.util.highlight('js-numeric')
-			],
+		// numeric values (including hexadecimal)
+		'number': [
+			/(-{0,1}\d+\.{0,1}\d+|-{0,1}0x\w+)(?=[^\w])/g, 
+			_language.util.highlight('js-numeric')
+		],
 
-			// double/single qouted string
-			'string': [
-				/(".*?"|'.*?')/g, 
-				_language.util.ignoreNot('js-string')
-			],
+		// double/single qouted string
+		'string': [
+			/(".*?"|'.*?')/g, 
+			_language.util.ignoreNot('js-string')
+		],
 
-			// comments
-			'inlineCom': [
-				/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
-				_language.util.ignoreNot('js-comment')
-			],
+		// comments
+		'inlineCom': [
+			/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
+			_language.util.ignoreNot('js-comment')
+		],
 
-			// regexp literals
-			'regExp': [
-				/[^<](\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g,
-				_language.util.ignoreNot('js-regexp')
-			],
-		};
+		// regexp literals
+		'regExp': [
+			/[^<](\/.+?\/(\s|,|\]|;|\/|g|i|m|y))/g,
+			_language.util.ignoreNot('js-regexp')
+		],
 	};
 
 	// primary syntax highlighter namespace
@@ -212,7 +209,7 @@
 			
 			if(isidentifierString && isLangString && isThemeString) {
 				config.elems = document.getElementsByClassName(identifier);
-				config.lang = language[lang](theme);
+				config.lang = language[lang];
 				config.theme = theme;
 			} else {
 				throw new Error(_errors._illegalArgumentsError);
