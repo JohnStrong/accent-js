@@ -170,12 +170,12 @@
 
 	// runner mathod for accent sytax highlighting
 	_accent['highlight'] = function(config) {
-	
+		
 		var self = this;
 
 		return function(node) {
 			self.format.call(config, node);
-			self.parse.call(config, node);
+			self.parse.call(config, node);	
 		};
 	};
 
@@ -198,7 +198,8 @@
 		return function(identifier, lang, theme) {
 
 			var config = {},
-				_acc,
+				elems, 
+				acc,
 
 			// basic input validation of function params
 			isidentifierString = _is(identifier, 'String'),
@@ -206,15 +207,18 @@
 			isThemeString = _is(theme, 'String');
 			
 			if(isidentifierString && isLangString && isThemeString) {
-				config.elems = document.getElementsByClassName(identifier);
+				
+				elems = document.getElementsByClassName(identifier);
+
 				config.lang = language[lang];
 				config.theme = theme;
+				
 			} else {
 				throw new Error(_errors.illegalArgumentsError);
 			}
 
-			_acc = accent['highlight'](config);
-			config.elems.forEach(_acc);
+			acc = accent['highlight'](config);
+			elems.forEach(acc);
 		};
 
 	})(_accent, _language);
