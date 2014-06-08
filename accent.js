@@ -4,8 +4,6 @@
  *	Description:
  *		implemented in javascript, this project aims to be a simple multi language code highlighting library,
  *		taking stylistic influence from various popular text editors
- *
- *		I do NOT intend to implement highlighting for all languages or even most
  **/
 
 
@@ -116,6 +114,7 @@
 		],
 	};
 
+
 	// primary syntax highlighter namespace
 	var _accent = {};
 
@@ -169,7 +168,6 @@
 
 	} )();
 
-
 	// runner mathod for accent sytax highlighting
 	_accent['highlight'] = function(config) {
 	
@@ -187,7 +185,7 @@
 	var accent = ( function(accent, language) {
 
 		var _errors = {
-			_illegalArgumentsError:'both identifier and language parameters must be strings'
+			illegalArgumentsError: 'both identifier and language parameters must be strings'
 		},
 		
 		// reliable way to check type of accent function arguments
@@ -212,7 +210,7 @@
 				config.lang = language[lang];
 				config.theme = theme;
 			} else {
-				throw new Error(_errors._illegalArgumentsError);
+				throw new Error(_errors.illegalArgumentsError);
 			}
 
 			_acc = accent['highlight'](config);
