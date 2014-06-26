@@ -60,7 +60,7 @@ Below contains an example project in which the user has created a css file descr
 			color: #FD5;
 		}
 	</code>
-<pre>
+</pre>
 
 ### test.html
 
