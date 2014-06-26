@@ -44,7 +44,6 @@
 
 			return function(match) {	
 				var escaped = match.replace(/\<span\s+class=.*?>(.*?)<\/span>/g, '$1');
-
 				return self.highlight(syntaxClass)(escaped);
 			};
 		}
@@ -102,7 +101,7 @@
 		],
 
 		// comments
-		'inlineCom': [
+		'comment': [
 			/(\/{2}.*?\n+|\/\*(.|[\r\n])*\*\/)/g,
 			_language.util.ignoreNot('js-comment')
 		],
@@ -212,7 +211,7 @@
 
 				config.lang = language[lang];
 				config.theme = theme;
-				
+
 			} else {
 				throw new Error(_errors.illegalArgumentsError);
 			}

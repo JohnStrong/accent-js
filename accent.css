@@ -23,6 +23,11 @@
 	color: #222;
 }
 
+.acc-muddy {
+	background-color: #101;
+	color: #CCC;
+}
+
 /*************************************
  * JAVASCRIPT Highlighter Properties
  *************************************/
@@ -72,7 +77,7 @@
 .acc-light .js-declaration, 
 .acc-light .js-operation, 
 .acc-light .js-special {
-	color: #F07;
+	color: #C48;
 	font-weight: bold !important;
 }
 
@@ -86,10 +91,6 @@
 	font-style: italic !important;
 }
 
-.acc-light .js-args {
-	color: #aaa;
-}
-
 .acc-light .js-regexp {
 	color: #F5A;
 }
@@ -100,4 +101,35 @@
 
 .acc-light .js-type, .acc-light .js-numeric {
 	color: #F2A;
+}
+
+/* MUDDY THEME */
+.acc-muddy .js-string,
+.acc-muddy .js-type {
+	color: #949;
+}
+
+.acc-muddy .js-declaration,
+.acc-muddy .js-operation,
+.acc-muddy .js-special {
+	color: #797;
+	font-weight: bold !important;
+}
+
+.acc-muddy .js-global {
+	color: #737;
+	font-weight: bold !important;
+}
+
+.acc-muddy .js-comment {
+	color: #555;
+	font-style: italic !important;
+}
+
+.acc-muddy .js-regexp {
+	color: #A84;
+}
+ 
+.acc-muddy .js-numeric {
+	color: #FD5;
 }
