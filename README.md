@@ -12,7 +12,6 @@ Easy to use, customizable, code highlighting library Implemented with JavaScript
 !["javascript syntax with light theme"](/examples/javascriptThemeLight.PNG "javascript syntax with light theme")
 
 ## Muddy theme
-## Light theme 
 `accent('myClassName', 'javascript', 'muddy')`
 !["javascript syntax with muddy theme"](/examples/javascriptThemeMuddy.PNG "javascript syntax with muddy theme")
 
