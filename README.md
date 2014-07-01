@@ -63,7 +63,7 @@ Below contains an example project in which the user has created a css file descr
 
 ```html
 <code class="test">
-	for(var ith = 0; ith &lt; 100; i++) {
+	for(var ith = 0; ith < 100; i++) {
 		console.log(me.firstname, me.surname, me.age);
 	}	
 </code>
