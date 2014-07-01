@@ -22,64 +22,58 @@ Below contains an example project in which the user has created a css file descr
 
 ### custom.css
 
-<pre>
-	<code>
-		.acc-custom {
-			background-color: #101;
-			color: #CCC;
-		}
+```css
+.acc-custom {
+	background-color: #101;
+	color: #CCC;
+}
 
-		.acc-custom .js-string,
-		.acc-custom .js-type {
-			color: #949;
-		}
+.acc-custom .js-string,
+.acc-custom .js-type {
+	color: #949;
+}
 
-		.acc-custom .js-declaration, 
-		.acc-custom .js-operation, 
-		.acc-custom .js-special {
-			color: #797;
-			font-weight: bold !important;
-		}
+.acc-custom .js-declaration, 
+.acc-custom .js-operation, 
+.acc-custom .js-special {
+	color: #797;
+	font-weight: bold !important;
+}
 
-		.acc-custom .js-global {
-			color: #737;
-			font-weight: bold !important;
-		}
+.acc-custom .js-global {
+	color: #737;
+	font-weight: bold !important;
+}
 
-		.acc-custom .js-comment {
-			color: #555;
-			font-style: italic !important;
-		}
+.acc-custom .js-comment {
+	color: #555;
+	font-style: italic !important;
+}
 
-		.acc-custom .js-regexp {
-			color: #A84;
-		}
-		 
-		.acc-custom .js-numeric {
-			color: #FD5;
-		}
-	</code>
-</pre>
+.acc-custom .js-regexp {
+	color: #A84;
+}
+ 
+.acc-custom .js-numeric {
+	color: #FD5;
+}
+```
 
 ### test.html
 
-<pre>
-	<code>
-	&lt;code class="test"&gt;
-		for(var ith = 0; ith &lt; 100; i++) {
-			console.log(me.firstname, me.surname, me.age);
-	}
-	&lt;/code&gt;
-	</code>
-</pre>
+```html
+&lt;code class="test"&gt;
+	for(var ith = 0; ith &lt; 100; i++) {
+		console.log(me.firstname, me.surname, me.age);
+	}	
+&lt;/code&gt;
+```
 
 ### test.js
 
-<pre>
-	<code>
-		accent('test', 'javascript', 'custom');
-	</code>
-</pre>
+```javascript
+accent('test', 'javascript', 'custom');
+```
 
 ### result
 
