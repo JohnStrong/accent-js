@@ -154,33 +154,36 @@
 	accent = (function() {
 
 		// reliable way to check type of accent function arguments
-		var _is = function(obj, type) {
-			var clas = Object.prototype.toString.call(obj).slice(8, -1);
-			return clas === type;
+		//+ _is :: any,str -> boolean
+		var _is = function(entity, type) {
+			return Object.prototype.toString.call(entity).slice(8, -1) === type;
 		},
 
+		//+ _areStr :: array -> boolean
+		_areStr = function() {
+			var args = Array.prototype.slice.call(arguments);
+
+			return args.reduce(function(status, maybeString) {
+				return _is(maybeString, 'String')
+			}, true);
+		},
+
+		//+ _highlight :: string,string -> domNode -> undefined
 		_highlight = function(lang, theme) {
 			return function(elem) {
 				_compose(_format(theme), _parse(lang))(elem);
 			};
 		};
 
-		// add option param
 		return function(identifier, lang, theme) {
 
-			// basic input validation of function params
-			var isidentifierString = _is(identifier, 'String'),
-			isLangString = _is(lang, 'String'),
-			isThemeString = _is(theme, 'String');
-			
-			if(isidentifierString && isLangString && isThemeString) {
-				
-				var elems = document.getElementsByClassName(identifier),
+			if(_areStr(identifier, lang, theme)) {
+				var elems =  document.getElementsByClassName(identifier),
 				begin = _highlight(_language[lang], theme);
 				elems.forEach(begin);
 
 			} else {
-				throw new TypeError('both identifier and language parameters must be strings');
+				throw new TypeError('identifier, language & theme parameters must be strings');
 			}
 		};
 
