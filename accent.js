@@ -163,9 +163,9 @@
 		_areStr = function() {
 			var args = Array.prototype.slice.call(arguments);
 
-			return args.reduce(function(status, maybeString) {
+			return args.reduce(function(_, maybeString) {
 				return _is(maybeString, 'String')
-			}, true);
+			}, false);
 		},
 
 		//+ _highlight :: string,string -> domNode -> undefined
