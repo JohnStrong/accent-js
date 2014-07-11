@@ -1,24 +1,14 @@
 /**
- *	ACCENT.JS: multi language code highlighting library
- *	
- *	Description:
- *		implemented in javascript, this project aims to be a simple multi language code highlighting library,
- *		taking stylistic influence from various popular text editors
+ *	ACCENT.JS: customizable code highlighting project
+ *
  **/
-
-
-// TODO generalize language object to parse regexp patterns with generic function
 ;( function() {
 
 	'use strict';
-
-	// allows for a more functionally pure iterations on Dom node collections
-	NodeList.prototype.forEach =
-		HTMLCollection.prototype.forEach = 
-			Array.prototype.forEach;
-
+	
 	//+ _compose :: array(function) -> function -> any
 	var _compose = function() {
+		
 		var fns = Array.prototype.slice.call(arguments);
 
 		return function(arg) {
@@ -26,6 +16,15 @@
 				return fn(arg);
 			}, arg);
 		};
+	},
+
+	_forEach = function(arr, fn) {
+
+		var len = arr.length;
+
+		for(var ith = 0; ith < len; ith++) {
+			fn(arr[ith]);
+		}
 	},
 
 	/**
@@ -178,9 +177,11 @@
 		return function(identifier, lang, theme) {
 
 			if(_areStr(identifier, lang, theme)) {
+				
 				var elems =  document.getElementsByClassName(identifier),
 				begin = _highlight(_language[lang], theme);
-				elems.forEach(begin);
+				
+				_forEach(elems, begin);
 
 			} else {
 				throw new TypeError('identifier, language & theme parameters must be strings');
