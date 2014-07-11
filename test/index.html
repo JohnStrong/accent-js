@@ -4,145 +4,148 @@
 <title>Accent test</title>
 <link rel="stylesheet" href="./../accent.css">
 <link rel="stylesheet" href="custom.css">
+<style>
+	div {
+		width: 700px;
+	}
+</style>
 </head>
 <body>
 	<div>
 		<h1>Dark Theme</h1>
-		<pre>
-			<code class="code-1">
-					
-				/**
-				 *	Accent.js - javascript test v0.1
-				 **/
-				(function() {
+		<code class="code-1">
+				
+/**
+ *	Accent.js - javascript test v0.1
+ **/
+(function() {
 
-					'use strict';
+	'use strict';
 
-					var me = {
-						'firstname': 'John',
-						'surname': 'Strong',
-						'age': 21
-					};
+	var me = {
+		'firstname': 'John',
+		'surname': 'Strong',
+		'age': 21
+	};
 
-					// person function constructor
-					function Person(fname, sname, age) {
-						this.firstname = fname;
-						this.surname = sname;
-						this.age = age;
-					}
+	// person function constructor
+	function Person(fname, sname, age) {
+		this.firstname = fname;
+		this.surname = sname;
+		this.age = age;
+	}
 
-					Person.prototype.getName = function() {
-						return this.surname + ', ' + this.furstname;
-					}
+	Person.prototype.getName = function() {
+		return this.surname + ', ' + this.furstname;
+	}
 
-					var test = function() {
-						for(var ith = 0; ith &lt; 100; i++) {
-							console.log(me.firstname, me.surname, me.age);
-						}
+	var test = function() {
+		for(var ith = 0; ith &lt; 100; i++) {
+			console.log(me.firstname, me.surname, me.age);
+		}
 
-						var john = new Person('john', 'doe', 40),
-							jane = new Person('jane', 'doe', 35);
+		var john = new Person('john', 'doe', 40),
+			jane = new Person('jane', 'doe', 35);
 
-						alert(john.firstname);
+		alert(john.firstname);
 
-						console.log(typeof me.__proto__);
+		console.log(typeof me.__proto__);
 
-						if(jane.age &lt; john.age) {
-							throw new Error('&lt;test&gt;&lt;/test&gt;');
-						}
+		if(jane.age &lt; john.age) {
+			throw new Error('&lt;test&gt;&lt;/test&gt;');
+		}
 
-						return (Math.random() &lt; 0.5)? john : undefined;	
-					}
+		return (Math.random() &lt; 0.5)? john : undefined;	
+	}
 
-					var maybePerson = test(),
+	var maybePerson = test(),
 
-					div = '&lt;div&gt;Test&lt;/div&gt;',
-					p = "&lt;p&gt;-666&lt;/p&gt;",
+	div = '&lt;div&gt;Test&lt;/div&gt;',
+	p = "&lt;p&gt;-666&lt;/p&gt;",
 
-					myArray1 = [],
+	myArray1 = [],
 
-					2myObj = [],
+	2myObj = [],
 
-					hex = 0xFF;
+	hex = 0xFF;
 
-					if(maybePerson !== undefined) {
-						var match = p.replace(/-666\w/g, '' + div + '');
-						document.innerHTML = match;
-					}
+	if(maybePerson !== undefined) {
+		var match = p.replace(/-666\w/g, '' + div + '');
+		document.innerHTML = match;
+	}
 
-					console.log(me.hasOwnProperty('firstname'));
-					
-				})();
-			</code>
-		</pre>
+	console.log(me.hasOwnProperty('firstname'));
+	
+})();
+		</code>
 	</div>
 	<div>
 		<h1>Light Theme</h1>
 		<pre>
 			<code class="code-2">
-					
-				/**
-				 *	Accent.js - javascript test v0.1
-				 **/
-				(function() {
+	
+/**
+ *	Accent.js - javascript test v0.1
+ **/
+(function() {
 
-					'use strict';
+	'use strict';
 
-					var me = {
-						'firstname': 'John',
-						'surname': 'Strong',
-						'age': 21
-					};
+	var me = {
+		'firstname': 'John',
+		'surname': 'Strong',
+		'age': 21
+	};
 
-					// person function constructor
-					function Person(fname, sname, age) {
-						this.firstname = fname;
-						this.surname = sname;
-						this.age = age;
-					}
+	// person function constructor
+	function Person(fname, sname, age) {
+		this.firstname = fname;
+		this.surname = sname;
+		this.age = age;
+	}
 
-					Person.prototype.getName = function() {
-						return this.surname + ', ' + this.furstname;
-					}
+	Person.prototype.getName = function() {
+		return this.surname + ', ' + this.furstname;
+	}
 
-					var test = function() {
-						for(var ith = 0; ith &lt; 100; i++) {
-							console.log(me.firstname, me.surname, me.age);
-						}
+	var test = function() {
+		for(var ith = 0; ith &lt; 100; i++) {
+			console.log(me.firstname, me.surname, me.age);
+		}
 
-						var john = new Person('john', 'doe', 40),
-							jane = new Person('jane', 'doe', 35);
+		var john = new Person('john', 'doe', 40),
+			jane = new Person('jane', 'doe', 35);
 
-						alert(john.firstname);
+		alert(john.firstname);
 
-						console.log(typeof me.__proto__);
+		console.log(typeof me.__proto__);
 
-						if(jane.age &lt; john.age) {
-							throw new Error('&lt;test&gt;&lt;/test&gt;');
-						}
+		if(jane.age &lt; john.age) {
+			throw new Error('&lt;test&gt;&lt;/test&gt;');
+		}
 
-						return (Math.random() &lt; 0.5)? john : undefined;	
-					}
+		return (Math.random() &lt; 0.5)? john : undefined;	
+	}
 
-					var maybePerson = test(),
+	var maybePerson = test(),
 
-					div = '&lt;div&gt;Test&lt;/div&gt;',
-					p = "&lt;p&gt;-666&lt;/p&gt;",
+	div = '&lt;div&gt;Test&lt;/div&gt;',
+	p = "&lt;p&gt;-666&lt;/p&gt;",
 
-					myArray1 = [],
+	myArray1 = [],
 
-					2myObj = [],
+	2myObj = [],
 
-					hex = 0xFF;
+	hex = 0xFF;
 
-					if(maybePerson !== undefined) {
-						var match = p.replace(/-666\w/g, '' + div + '');
-						document.innerHTML = match;
-					}
+	if(maybePerson !== undefined) {
+		var match = p.replace(/-666\w/g, '' + div + '');
+		document.innerHTML = match;
+	}
 
-					console.log(me.hasOwnProperty('firstname'));
-					
-				})();
+	console.log(me.hasOwnProperty('firstname'));
+	
+})();
 			</code>
 		</pre>
 	</div>
@@ -151,68 +154,68 @@
 		<pre>
 			<code class="code-3">
 					
-				/**
-				 *	Accent.js - javascript test v0.1
-				 **/
-				(function() {
+/**
+ *	Accent.js - javascript test v0.1
+ **/
+(function() {
 
-					'use strict';
+	'use strict';
 
-					var me = {
-						'firstname': 'John',
-						'surname': 'Strong',
-						'age': 21
-					};
+	var me = {
+		'firstname': 'John',
+		'surname': 'Strong',
+		'age': 21
+	};
 
-					// person function constructor
-					function Person(fname, sname, age) {
-						this.firstname = fname;
-						this.surname = sname;
-						this.age = age;
-					}
+	// person function constructor
+	function Person(fname, sname, age) {
+		this.firstname = fname;
+		this.surname = sname;
+		this.age = age;
+	}
 
-					Person.prototype.getName = function() {
-						return this.surname + ', ' + this.furstname;
-					}
+	Person.prototype.getName = function() {
+		return this.surname + ', ' + this.furstname;
+	}
 
-					var test = function() {
-						for(var ith = 0; ith &lt; 100; i++) {
-							console.log(me.firstname, me.surname, me.age);
-						}
+	var test = function() {
+		for(var ith = 0; ith &lt; 100; i++) {
+			console.log(me.firstname, me.surname, me.age);
+		}
 
-						var john = new Person('john', 'doe', 40),
-							jane = new Person('jane', 'doe', 35);
+		var john = new Person('john', 'doe', 40),
+			jane = new Person('jane', 'doe', 35);
 
-						alert(john.firstname);
+		alert(john.firstname);
 
-						console.log(typeof me.__proto__);
+		console.log(typeof me.__proto__);
 
-						if(jane.age &lt; john.age) {
-							throw new Error('&lt;test&gt;&lt;/test&gt;');
-						}
+		if(jane.age &lt; john.age) {
+			throw new Error('&lt;test&gt;&lt;/test&gt;');
+		}
 
-						return (Math.random() &lt; 0.5)? john : undefined;	
-					}
+		return (Math.random() &lt; 0.5)? john : undefined;	
+	}
 
-					var maybePerson = test(),
+	var maybePerson = test(),
 
-					div = '&lt;div&gt;Test&lt;/div&gt;',
-					p = "&lt;p&gt;-666&lt;/p&gt;",
+	div = '&lt;div&gt;Test&lt;/div&gt;',
+	p = "&lt;p&gt;-666&lt;/p&gt;",
 
-					myArray1 = [],
+	myArray1 = [],
 
-					2myObj = [],
+	2myObj = [],
 
-					hex = 0xFF;
+	hex = 0xFF;
 
-					if(maybePerson !== undefined) {
-						var match = p.replace(/-666\w/g, '' + div + '');
-						document.innerHTML = match;
-					}
+	if(maybePerson !== undefined) {
+		var match = p.replace(/-666\w/g, '' + div + '');
+		document.innerHTML = match;
+	}
 
-					console.log(me.hasOwnProperty('firstname'));
-					
-				})();
+	console.log(me.hasOwnProperty('firstname'));
+	
+})();
 			</code>
 		</pre>
 	</div>

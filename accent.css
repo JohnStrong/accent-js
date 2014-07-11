@@ -1,33 +1,46 @@
 /*************************************
  * General Properties
  *************************************/
+ 
+ pre[class*='acc-'] {
+ 	overflow-x: auto;
+	text-align: left;
+	
+	padding: .1em 1em;
+ }
+
+ pre[class*='acc-'] code {
+ 	line-height: 1.5em;
+ 	font-size: 15px;
+
+	font-family: 
+		"Source Code Pro", 
+			"Ubuntu Mono", 
+				"Courier New", 
+					Courier, 
+						monospace;
+ }
 
 /*************************************
  * THEME properties
  *************************************/
 
- pre[class*='acc-'] {
- 	overflow-x: scroll;
-	word-wrap: normal;
-	padding: 1.2%;
-
-	font-size: 1em;
-	font-family: "Ubuntu Mono", "Lucida Console", monospace;
- }
-
 .acc-dark {
-	background-color: #222;
+	background-color: #2C2C2C;
+	border-left: 10px solid #444;
 	color: #DDD;
 }
 
 .acc-light {
-	background-color: #FFF;
-	color: #222;
+	background-color: #F5F5F5;
+	border-left: 10px solid #FAD;
+	color: #333;
 }
 
 .acc-muddy {
-	background-color: #101;
-	color: #CCC;
+	background-color: #150515;
+	border-left: 10px solid #404;
+	color: #DDD;
 }
 
 /*************************************
